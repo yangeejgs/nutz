@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 @Table("t_user")
-public class User {
+public class User extends BasePojo {
 
     @Id
     private Integer id;
@@ -26,12 +26,6 @@ public class User {
 
     @Column
     private String salt;
-
-    @Column
-    private Date createDateTime;
-
-    @Column
-    private Date updateDateTime;
 
     public Integer getId() {
         return id;
@@ -63,21 +57,5 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    public Date getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(Date createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public Date getUpdateDateTime() {
-        return updateDateTime;
-    }
-
-    public void setUpdateDateTime(Date updateDateTime) {
-        this.updateDateTime = updateDateTime;
     }
 }
