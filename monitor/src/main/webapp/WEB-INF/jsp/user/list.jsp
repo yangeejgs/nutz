@@ -12,7 +12,7 @@
         var base = '<%=request.getAttribute("base")%>';
         function user_reload() {
             $.ajax({
-                url: base + "/user/queryUserByName",
+                url: base + "/user/queryUserByName.action",
                 data: $("#user_query_form").serialize(),
                 dataType: "json",
                 success: function (data) {
@@ -40,7 +40,7 @@
             });
             $("#user_add_btn").click(function () {
                 $.ajax({
-                    url: base + "/user/add",
+                    url: base + "/user/add.action",
                     data: $("#user_add_form").serialize(),
                     dataType: "json",
                     success: function (data) {
@@ -58,7 +58,7 @@
             var passwd = prompt("请输入新的密码");
             if (passwd) {
                 $.ajax({
-                    url: base + "/user/update",
+                    url: base + "/user/update.action",
                     data: {"id": userId, "password": passwd},
                     dataType: "json",
                     success: function (data) {
@@ -76,7 +76,7 @@
             var s = prompt("请输入y确认删除");
             if (s == "y") {
                 $.ajax({
-                    url: base + "/user/delete",
+                    url: base + "/user/delete.action",
                     data: {"id": userId},
                     dataType: "json",
                     success: function (data) {
