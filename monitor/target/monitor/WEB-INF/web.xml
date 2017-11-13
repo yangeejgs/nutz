@@ -32,6 +32,7 @@
     <filter-mapping>
         <filter-name>nutz</filter-name>
         <url-pattern>*.action</url-pattern>
+        <url-pattern>*.aspx</url-pattern>
         <!-- ForwardView需要下面的配置 @Ok("->:/xxx/yyy/zzz") -->
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
