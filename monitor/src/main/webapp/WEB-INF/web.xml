@@ -31,7 +31,7 @@
     </filter>
     <filter-mapping>
         <filter-name>nutz</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.action</url-pattern>
         <!-- ForwardView需要下面的配置 @Ok("->:/xxx/yyy/zzz") -->
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>

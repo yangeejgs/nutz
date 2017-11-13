@@ -9,10 +9,10 @@ import java.util.Date;
  */
 public class BasePojo {
 
-    @Column("ct")
+    @Column
     protected Date createDateTime;
 
-    @Column("ut")
+    @Column
     protected Date updateDateTime;
 
     @Override
