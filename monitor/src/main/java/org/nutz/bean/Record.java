@@ -12,7 +12,7 @@ public class Record {
     @Id
     private Integer id;
 
-    @Name
+    @Column
     private String RecID;
 
     @Column

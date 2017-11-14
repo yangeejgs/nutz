@@ -5,10 +5,12 @@ import org.nutz.bean.User;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.QueryResult;
 import org.nutz.dao.pager.Pager;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.annotation.*;
+import org.nutz.socket.MyWebsocket;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -23,8 +25,13 @@ import java.util.Date;
 @Fail("http:500")
 public class UserModule extends BaseModule {
 
+    @Inject
+    private MyWebsocket myWebsocket;
+
     @At
     public Integer count() {
+
+
         return this.dao.count(User.class);
     }
 

@@ -22,6 +22,8 @@
             console.log("websocket onopen ...");
             // 加入home房间
             ws.send(JSON.stringify({room: 'home', "action": "join"}));
+            // 发送消息到指定房间
+            ws.send(JSON.stringify({room: 'home', "action": "msg2room", "msg": "大家好!!"}));
         };
         // 收到服务器发来的信息时触发的回调
         ws.onmessage = function (event) {

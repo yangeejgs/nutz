@@ -1,11 +1,15 @@
 package org.nutz.module;
 
 import org.nutz.bean.Android_DetectionHistoryData;
+import org.nutz.bean.Record;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.json.Json;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.adaptor.JsonAdaptor;
 import org.nutz.mvc.annotation.*;
 import org.slf4j.Logger;
+
+import java.util.List;
 
 
 /**
@@ -23,12 +27,21 @@ public class RecordModule extends BaseModule {
 
     @At
     @AdaptBy(type = JsonAdaptor.class)
-    public NutMap saveDetectionHistoryData(@Param("..") Android_DetectionHistoryData data) {
-        LOGGER.info("插入Android_DetectionHistoryData");
+    public NutMap addrecord(@Param("MachineId") String MachineId, @Param("RecordList") List<Record> recordList) {
+        LOGGER.info("MachineId : {},插入Record{}", MachineId, recordList);
         NutMap re = new NutMap();
         try {
-            dao.insert(data);
-            return re.setv("code", 200).setv("info", "success");
+            for (Record record : recordList) {
+                LOGGER.info("插入信息为record{}", record);
+                Record insertRecird = this.dao.insert(record);
+                if (null == insertRecird.getRecID() || insertRecird.equals("")) {
+                    LOGGER.info("同步recordId信息recordId:{}", record.getId());
+                    Integer id = record.getId();
+                    record.setRecID(id + "");
+                    this.dao.updateIgnoreNull(record);
+                }
+            }
+            return re.setv("code", 200).setv("info", "200");
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             e.printStackTrace();
