@@ -3,17 +3,32 @@ package org.nutz.module;
 import com.mysql.jdbc.StringUtils;
 import org.nutz.bean.User;
 import org.nutz.dao.Cnd;
+import org.nutz.dao.Dao;
 import org.nutz.dao.QueryResult;
 import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Each;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.annotation.*;
+import org.nutz.plugins.mvc.websocket.AbstractWsEndpoint;
+import org.nutz.plugins.mvc.websocket.NutWsConfigurator;
+import org.nutz.plugins.mvc.websocket.WsHandler;
+import org.nutz.plugins.mvc.websocket.handler.SimpleWsHandler;
+import org.nutz.plugins.mvc.websocket.room.MemoryRoomProvider;
+import org.nutz.socket.MySimpleWsHandler;
 import org.nutz.socket.MyWebsocket;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.EndpointConfig;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by yangyang7 on 2017/11/11.
@@ -23,15 +38,19 @@ import java.util.Date;
 @At("/user")
 @Ok("json:{locked:'password|salt',ignoreNull:true}")
 @Fail("http:500")
-public class UserModule extends BaseModule {
+@ServerEndpoint(value = "/websocket", configurator = NutWsConfigurator.class)
+public class UserModule extends AbstractWsEndpoint {
 
     @Inject
-    private MyWebsocket myWebsocket;
+    protected Dao dao;
+
+    protected Session session;
 
     @At
     public Integer count() {
 
-
+        sendJson(session.getId(), "Hello Yangee");
+        System.out.println("接受接受~");
         return this.dao.count(User.class);
     }
 

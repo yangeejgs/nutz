@@ -10,7 +10,7 @@
     <script type="text/javascript">
         // 首先,需要创建一个WebSocket连接
         var ws;
-        var WS_URL = window.location.host + "/websocket"
+        var WS_URL = "localhost:8888/websocket";
         // 如果页面是https,那么必须走wss协议, 否则走ws协议
         if (location.protocol == 'http:') {
             ws = new WebSocket("ws://" + WS_URL);
@@ -29,6 +29,7 @@
         ws.onmessage = function (event) {
             console.log("websocket onmessage", event.data);
             var re = JSON.parse(event.data);
+            alert(re);
             if (re.action == "notify") {
                 // 弹个浏览器通知
             } else if (re.action == "msg") {
