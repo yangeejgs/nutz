@@ -58,4 +58,16 @@ public class User extends BasePojo {
     public void setSalt(String salt) {
         this.salt = salt;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "createDateTime=" + createDateTime +
+                ", updateDateTime=" + updateDateTime +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                '}';
+    }
 }

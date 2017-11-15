@@ -12,23 +12,12 @@ import org.nutz.lang.Each;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.annotation.*;
-import org.nutz.plugins.mvc.websocket.AbstractWsEndpoint;
-import org.nutz.plugins.mvc.websocket.NutWsConfigurator;
 import org.nutz.plugins.mvc.websocket.WsHandler;
-import org.nutz.plugins.mvc.websocket.handler.SimpleWsHandler;
-import org.nutz.plugins.mvc.websocket.room.MemoryRoomProvider;
-import org.nutz.socket.MySimpleWsHandler;
 import org.nutz.socket.MyWebsocket;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.EndpointConfig;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Created by yangyang7 on 2017/11/11.
@@ -38,18 +27,26 @@ import java.util.Set;
 @At("/user")
 @Ok("json:{locked:'password|salt',ignoreNull:true}")
 @Fail("http:500")
-@ServerEndpoint(value = "/websocket", configurator = NutWsConfigurator.class)
-public class UserModule extends AbstractWsEndpoint {
+public class UserModule {
 
     @Inject
     protected Dao dao;
 
-    protected Session session;
+    @Inject
+    protected MyWebsocket myWebsocket;
+
+    // 按业务需要,调用myWebsocket提供的各种api
+    public void send_job_notify(String room, final String from) {
+        myWebsocket.each(room, new Each<Session>() {
+            public void invoke(int index, Session ele, int length) {
+                myWebsocket.sendJson(ele.getId(), new NutMap("action", "layer").setv("notify", "你有新的待办事宜,请查看收件箱 from=" + from));
+            }
+        });
+    }
 
     @At
-    public Integer count() {
-
-        sendJson(session.getId(), "Hello Yangee");
+    public Integer count(HttpSession httpSession) {
+        send_job_notify("wsroom:home", "Hello Socket");
         System.out.println("接受接受~");
         return this.dao.count(User.class);
     }
@@ -78,6 +75,8 @@ public class UserModule extends AbstractWsEndpoint {
 
     @At
     public NutMap add(@Param("..") User user) {
+
+        send_job_notify("wsroom:home", user.toString());
 
         NutMap re = new NutMap();
 
