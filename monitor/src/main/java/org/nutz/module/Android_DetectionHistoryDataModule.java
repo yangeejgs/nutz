@@ -7,6 +7,8 @@ import org.nutz.mvc.adaptor.JsonAdaptor;
 import org.nutz.mvc.annotation.*;
 import org.slf4j.Logger;
 
+import java.util.Date;
+
 
 /**
  * Created by yangyang on 2017/11/12.
@@ -27,6 +29,8 @@ public class Android_DetectionHistoryDataModule extends BaseModule {
         LOGGER.info("插入Android_DetectionHistoryData");
         NutMap re = new NutMap();
         try {
+            data.setCreateDateTime(new Date());
+            data.setUpdateDateTime(new Date());
             dao.insert(data);
             return re.setv("code", 200).setv("info", "success");
         } catch (Exception e) {

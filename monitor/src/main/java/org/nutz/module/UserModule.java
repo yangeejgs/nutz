@@ -8,15 +8,11 @@ import org.nutz.dao.QueryResult;
 import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Each;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.annotation.*;
-import org.nutz.plugins.mvc.websocket.WsHandler;
-import org.nutz.socket.MyWebsocket;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 import java.util.Date;
 
 /**
@@ -32,24 +28,24 @@ public class UserModule {
     @Inject
     protected Dao dao;
 
-    @Inject
-    protected MyWebsocket myWebsocket;
+//    @Inject
+//    protected MyWebsocket myWebsocket;
 
     // 按业务需要,调用myWebsocket提供的各种api
-    public void send_job_notify(String room, final String from) {
-        myWebsocket.each(room, new Each<Session>() {
-            public void invoke(int index, Session ele, int length) {
-                myWebsocket.sendJson(ele.getId(), new NutMap("action", "layer").setv("notify", "你有新的待办事宜,请查看收件箱 from=" + from));
-            }
-        });
-    }
+//    public void send_job_notify(String room, final String from) {
+//        myWebsocket.each(room, new Each<Session>() {
+//            public void invoke(int index, Session ele, int length) {
+//                myWebsocket.sendJson(ele.getId(), new NutMap("action", "layer").setv("notify", "你有新的待办事宜,请查看收件箱 from=" + from));
+//            }
+//        });
+//    }
 
-    @At
-    public Integer count(HttpSession httpSession) {
-        send_job_notify("wsroom:home", "Hello Socket");
-        System.out.println("接受接受~");
-        return this.dao.count(User.class);
-    }
+//    @At
+//    public Integer count(HttpSession httpSession) {
+//        send_job_notify("wsroom:home", "Hello Socket");
+//        System.out.println("接受接受~");
+//        return this.dao.count(User.class);
+//    }
 
     @At("/")
     @Ok("jsp:jsp.user.list") // 真实路径是 /WEB-INF/jsp/user/list.jsp
@@ -76,7 +72,7 @@ public class UserModule {
     @At
     public NutMap add(@Param("..") User user) {
 
-        send_job_notify("wsroom:home", user.toString());
+//        send_job_notify("wsroom:home", user.toString());
 
         NutMap re = new NutMap();
 
@@ -117,7 +113,6 @@ public class UserModule {
         return new NutMap().setv("ok", true);
     }
 
-
     private String checkUser(User user, Boolean create) {
         if (null == user) {
             return "用户对象为空";
@@ -153,6 +148,11 @@ public class UserModule {
             user.setName(user.getName().trim());
         }
         return null;
+    }
+
+    @At
+    public long getTime() {
+        return new Date().getTime();
     }
 
     @At

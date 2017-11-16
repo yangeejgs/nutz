@@ -9,6 +9,7 @@ import org.nutz.mvc.adaptor.JsonAdaptor;
 import org.nutz.mvc.annotation.*;
 import org.slf4j.Logger;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 
 @IocBean
-@At("/sysaspx/apk")
+@At("/sysaspx")
 @Ok("json")
 @Fail("http:500")
 @Encoding(input = "UTF-8", output = "UTF-8")
@@ -25,13 +26,16 @@ public class RecordModule extends BaseModule {
 
     private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(RecordModule.class);
 
-    @At
+    @At("/apk")
     @AdaptBy(type = JsonAdaptor.class)
     public NutMap addrecord(@Param("MachineId") String MachineId, @Param("RecordList") List<Record> recordList) {
         LOGGER.info("MachineId : {},插入Record{}", MachineId, recordList);
         NutMap re = new NutMap();
         try {
             for (Record record : recordList) {
+                record.setMachineId(MachineId);
+                record.setCreateDateTime(new Date());
+                record.setUpdateDateTime(new Date());
                 LOGGER.info("插入信息为record{}", record);
                 Record insertRecird = this.dao.insert(record);
                 if (null == insertRecird.getRecID() || insertRecird.equals("")) {

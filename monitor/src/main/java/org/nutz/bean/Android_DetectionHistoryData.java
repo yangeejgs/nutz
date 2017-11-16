@@ -1,14 +1,12 @@
 package org.nutz.bean;
 
-import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
-import org.nutz.dao.entity.annotation.Table;
+import org.nutz.dao.entity.annotation.*;
 
 /**
  * Created by yangyang on 2017/11/12.
  */
 @Table("t_android_detectionhistorydata")
-public class Android_DetectionHistoryData {
+public class Android_DetectionHistoryData extends BasePojo {
 
     @Id
     private Integer id;
@@ -16,80 +14,112 @@ public class Android_DetectionHistoryData {
     /**
      * 检测项目
      */
-    @Column
+    @Column("detection_item")
     private String detectionItem;
 
     /**
      * 样品名称
      */
-    @Column
+    @Column("sample_name")
     private String sampleName;
 
     /**
      * 结果判定
      */
-    @Column
+    @Column("detection_result")
     private String detectionResult;
 
     /**
      * 企业标识 前期未提供接口下传空值
      */
-    @Column
+    @Column("enterprise_unid")
     private String enterpriseUnid;
 
     /**
      * 企业名称 前期先不提供接口，请直接传你们录入的企业名称
      */
-    @Column
+    @Column("enterprise_name")
     private String enterpriseName;
 
     /**
      * 检测日期含时间 时间格式YYYY-mm-dd hh:MM:ss 如果未传系统会自动默认日期最小值
      */
-    @Column
+    @Column("detection_date")
     private String detectionDate;
 
     /**
      * 限量值（标准值）
      */
-    @Column
+    @Column("standard_value")
     private String standardValue;
 
     /**
      * 抑制率
      */
-    @Column
+    @Column("inhibition_rate")
     private String inhibitionRate;
 
     /**
      * 浓度
      */
-    @Column
+    @Column("concentration")
     private String concentration;
 
     /**
      * 检测单位
      */
-    @Column
+    @Column("detection_unit_name")
     private String detectionUnitName;
 
     /**
      * 检测人员 调用登录接口后返回值中的Uuid属性  修改了监测人员uuid
      */
-    @Column
+    @Column("person_uuid")
     private String personUuid;
 
     /**
      * 检测人员 调用登录接口后返回值中的Name属性
      */
-    @Column
+    @Column("person_name")
     private String personName;
 
     /**
      * 设备序列号
      */
-    @Column
+    @Column("device_serial_number")
     private String deviceSerialNumber;
+
+    /**
+     * 空气温度
+     */
+    @Column("air_temperature")
+    @ColDefine(type = ColType.FLOAT, width = 10, precision = 1)
+    @Default("0")
+    private Double airTemperature;
+
+    /**
+     * 空气湿度
+     */
+    @Column("air_humidity")
+    @ColDefine(type = ColType.FLOAT, width = 10, precision = 1)
+    @Default("0")
+    private Double airHumidity;
+
+    /**
+     * 二氧化碳浓度
+     */
+    @Column("carbon_dioxide_concentration")
+    @Default("0")
+    private Integer carbonDioxideConcentration;
+
+    /**
+     * 土壤水分
+     */
+    @Column("soil_moisture")
+    @ColDefine(type = ColType.FLOAT, width = 10, precision = 1)
+    @Default("0")
+    private Double soilMoisture;
+
 
     public Integer getId() {
         return id;
@@ -201,5 +231,37 @@ public class Android_DetectionHistoryData {
 
     public void setDeviceSerialNumber(String deviceSerialNumber) {
         this.deviceSerialNumber = deviceSerialNumber;
+    }
+
+    public Double getAirTemperature() {
+        return airTemperature;
+    }
+
+    public void setAirTemperature(Double airTemperature) {
+        this.airTemperature = airTemperature;
+    }
+
+    public Double getAirHumidity() {
+        return airHumidity;
+    }
+
+    public void setAirHumidity(Double airHumidity) {
+        this.airHumidity = airHumidity;
+    }
+
+    public Integer getCarbonDioxideConcentration() {
+        return carbonDioxideConcentration;
+    }
+
+    public void setCarbonDioxideConcentration(Integer carbonDioxideConcentration) {
+        this.carbonDioxideConcentration = carbonDioxideConcentration;
+    }
+
+    public Double getSoilMoisture() {
+        return soilMoisture;
+    }
+
+    public void setSoilMoisture(Double soilMoisture) {
+        this.soilMoisture = soilMoisture;
     }
 }

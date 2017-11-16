@@ -7,13 +7,16 @@ import org.nutz.dao.entity.annotation.*;
  */
 
 @Table("t_record")
-public class Record {
+public class Record extends BasePojo {
 
     @Id
     private Integer id;
 
     @Column
     private String RecID;
+
+    @Column
+    private String MachineId;
 
     @Column
     private String ItemIndex;
@@ -34,6 +37,7 @@ public class Record {
     private String TxtResult;
 
     @Column
+    @Default("检测单位未设置")
     private String Supplier;
 
     @Column
@@ -52,12 +56,14 @@ public class Record {
     private String Uint;
 
     @Column
+    @Default("被检单位未设置")
     private String ProducePlace;
 
     @Column
     private String CodeId;
 
     @Column
+    @Default("检测员未设置")
     private String CheckPerson;
 
     @Column
@@ -94,6 +100,30 @@ public class Record {
     @Column
     private String DTI_ID;
 
+
+    //空气温度
+    @Column("air_temperature")
+    @ColDefine(type = ColType.FLOAT, width = 10, precision = 1)
+    @Default("0")
+    private Double airTemperature;
+
+    //空气湿度
+    @Column("air_humidity")
+    @ColDefine(type = ColType.FLOAT, width = 10, precision = 1)
+    @Default("0")
+    private Double airHumidity;
+
+    //光照度
+    @Column("illumination")
+    @Default("0")
+    private Integer illumination;
+
+    //土壤水分
+    @Column("soil_moisture")
+    @ColDefine(type = ColType.FLOAT, width = 10, precision = 1)
+    @Default("0")
+    private Double soilMoisture;
+
     public Integer getId() {
         return id;
     }
@@ -108,6 +138,14 @@ public class Record {
 
     public void setRecID(String recID) {
         RecID = recID;
+    }
+
+    public String getMachineId() {
+        return MachineId;
+    }
+
+    public void setMachineId(String machineId) {
+        MachineId = machineId;
     }
 
     public String getItemIndex() {
@@ -316,5 +354,37 @@ public class Record {
 
     public void setDTI_ID(String DTI_ID) {
         this.DTI_ID = DTI_ID;
+    }
+
+    public Double getAirTemperature() {
+        return airTemperature;
+    }
+
+    public void setAirTemperature(Double airTemperature) {
+        this.airTemperature = airTemperature;
+    }
+
+    public Double getAirHumidity() {
+        return airHumidity;
+    }
+
+    public void setAirHumidity(Double airHumidity) {
+        this.airHumidity = airHumidity;
+    }
+
+    public Integer getIllumination() {
+        return illumination;
+    }
+
+    public void setIllumination(Integer illumination) {
+        this.illumination = illumination;
+    }
+
+    public Double getSoilMoisture() {
+        return soilMoisture;
+    }
+
+    public void setSoilMoisture(Double soilMoisture) {
+        this.soilMoisture = soilMoisture;
     }
 }

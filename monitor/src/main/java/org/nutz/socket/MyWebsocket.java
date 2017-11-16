@@ -10,7 +10,7 @@ import javax.websocket.server.ServerEndpoint;
  * Created by yangyang7 on 2017/11/11.
  */
 
-@ServerEndpoint(value = "/websocket", configurator = NutWsConfigurator.class)
+//@ServerEndpoint(value = "/websocket", configurator = NutWsConfigurator.class)
 @IocBean
 public class MyWebsocket extends AbstractWsEndpoint {
 

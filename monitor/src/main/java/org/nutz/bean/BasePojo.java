@@ -1,6 +1,7 @@
 package org.nutz.bean;
 
 import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Default;
 
 import java.util.Date;
 
@@ -9,19 +10,11 @@ import java.util.Date;
  */
 public class BasePojo {
 
-    @Column
+    @Column("create_date_time")
     protected Date createDateTime;
 
-    @Column
+    @Column("update_date_time")
     protected Date updateDateTime;
-
-    @Override
-    public String toString() {
-        return "BasePojo{" +
-                "createDateTime=" + createDateTime +
-                ", updateDateTime=" + updateDateTime +
-                '}';
-    }
 
     public Date getCreateDateTime() {
         return createDateTime;
@@ -37,5 +30,13 @@ public class BasePojo {
 
     public void setUpdateDateTime(Date updateDateTime) {
         this.updateDateTime = updateDateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "BasePojo{" +
+                "createDateTime=" + createDateTime +
+                ", updateDateTime=" + updateDateTime +
+                '}';
     }
 }
