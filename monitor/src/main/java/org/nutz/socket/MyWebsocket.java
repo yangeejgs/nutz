@@ -11,7 +11,7 @@ import javax.websocket.server.ServerEndpoint;
  */
 
 //@ServerEndpoint(value = "/websocket", configurator = NutWsConfigurator.class)
-@IocBean
+//@IocBean
 public class MyWebsocket extends AbstractWsEndpoint {
 
 //    public WsHandler createHandler(Session session, EndpointConfig config) {

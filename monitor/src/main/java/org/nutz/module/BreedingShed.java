@@ -1,7 +1,5 @@
 package org.nutz.module;
 
-import org.nutz.bean.Android_DetectionHistoryData;
-import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -12,7 +10,6 @@ import org.slf4j.Logger;
 
 import java.text.DecimalFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by yangyang on 2017/11/16.

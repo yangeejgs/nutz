@@ -1,9 +1,7 @@
 package org.nutz.module;
 
-import org.nutz.bean.Android_DetectionHistoryData;
 import org.nutz.bean.Record;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.json.Json;
 import org.nutz.lang.util.NutMap;
 import org.nutz.mvc.adaptor.JsonAdaptor;
 import org.nutz.mvc.annotation.*;

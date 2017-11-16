@@ -1,6 +1,5 @@
 package org.nutz.module;
 
-import org.nutz.bean.Android_DetectionHistoryData;
 import org.nutz.bean.Record;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
