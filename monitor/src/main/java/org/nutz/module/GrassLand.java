@@ -229,7 +229,7 @@ public class GrassLand {
             illumination = illumination / list.size();
             soilMoisture = soilMoisture / list.size();
         }
-        DecimalFormat df = new DecimalFormat(".#");
+        DecimalFormat df = new DecimalFormat("#.#");
         data.setv("airTemperature", df.format(airTemperature));
         data.setv("airHumidity", df.format(airHumidity));
         data.setv("illumination", illumination);
